@@ -6,7 +6,13 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: process.env.FRONT_END_URL, // Permite apenas solicitações do seu frontend
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 200, // Some browsers choke on 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const PAYMENT_CONFIRMATION_URL = `${process.env.FRONT_END_URL}/payment-confirmation`;
